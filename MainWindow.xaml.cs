@@ -91,54 +91,29 @@ namespace WpfHtmlScraping
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            //if (string.IsNullOrWhiteSpace(txtUrl.Text))
-            //{
-            //    return;
-            //}
-
             string url = txtUrl.Text;
             HttpClient client = new HttpClient();
             string html = await client.GetStringAsync(url);
 
-            //string html = this.GetHtmlAsync(url).Result;
-            //string tag = this.txtTag.Text;
-            //string attribute = this.txtAttribute.Text;
-            string xpath = this.txtXPath.Text;
-            string attribute = this.txtAttribute.Text;
-            Mode mode = Mode.要素;
-            if (this.chkAttribute.IsChecked == true)
+            string linkXPath = this.txtLinkXPath.Text;
+            string contentXPath = this.txtContentXPath.Text;
+            string attribute = "href";
+
+            StringBuilder result = new StringBuilder();
+            foreach (var link in this.GetHtmlAttribute(html, linkXPath, attribute))
             {
-                mode = Mode.属性;
+                string linkHtml = await client.GetStringAsync(link);
+                foreach (var text in this.GetHtmlContext(linkHtml, contentXPath))
+                {
+                    result.AppendLine(text);
+                    result.AppendLine();
+                }
             }
 
             txtResult.Dispatcher.Invoke(new Action(() =>
             {
-                StringBuilder result = new StringBuilder();
-                if (mode == Mode.要素)
-                {
-                    foreach (var text in this.GetHtmlContext(html, xpath))
-                    {
-                        result.AppendLine(text);
-                        result.AppendLine();
-                    }
-                }
-                else
-                {
-                    foreach (var text in this.GetHtmlAttribute(html, xpath, attribute))
-                    {
-                        result.AppendLine(text);
-                        result.AppendLine();
-                    }
-                }
-
                 txtResult.Text = result.ToString(); ;
             }));
-        }
-
-        private enum Mode
-        {
-            要素 = 0,
-            属性 = 1,
         }
     }
 }

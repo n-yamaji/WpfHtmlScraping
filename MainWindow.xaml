@@ -4,7 +4,7 @@
         Title="MainWindow" Height="450" Width="640">
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border BorderBrush="Black" BorderThickness="1"/>
@@ -19,7 +19,7 @@
             </Grid.RowDefinitions>
             
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="80" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="60" />
             </Grid.ColumnDefinitions>
@@ -30,17 +30,12 @@
             <!--<TextBlock Grid.Row="1" Grid.Column="0">タグ</TextBlock>
             <TextBox Name="txtTag" Grid.Row="1" Grid.Column="1"></TextBox>-->
 
-            <TextBlock Grid.Row="1" Grid.Column="0">XPath</TextBlock>
-            <TextBox Name="txtXPath" Grid.Row="1" Grid.Column="1">//a[.//div[@class='titleicon']]</TextBox>
+            <TextBlock Grid.Row="1" Grid.Column="0">LinkXPath</TextBlock>
+            <TextBox Name="txtLinkXPath" Grid.Row="1" Grid.Column="1">//a[.//div[@class='titleicon']]</TextBox>
 
-            <TextBlock Grid.Row="2" Grid.Column="0">属性</TextBlock>
-            <TextBox Name="txtAttribute" Grid.Row="2" Grid.Column="1">href</TextBox>
+            <TextBlock Grid.Row="2" Grid.Column="0">ContentXPath</TextBlock>
+            <TextBox Name="txtContentXPath" Grid.Row="2" Grid.Column="1">//li[@class='comment-body']</TextBox>
 
-            <WrapPanel Grid.Row="3" Grid.Column="1">
-                <RadioButton GroupName="mode" Name="chkContent">要素</RadioButton>
-                <RadioButton GroupName="mode" Name="chkAttribute" IsChecked="True">属性</RadioButton>
-            </WrapPanel>
-            
             <Button Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Click="Button_Click">
                 読込
             </Button>
